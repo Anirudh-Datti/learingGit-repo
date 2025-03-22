@@ -3,24 +3,165 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Awesome Aircraft List</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
+        }
+
+        body.dark-mode {
+            background-color: #121212;
+            color: #e0e0e0;
+        }
+
+        .container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 600px;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
+        }
+
+        .container.dark-mode {
+            background-color: #1e1e1e;
+            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            transition: color 0.3s ease; /* Smooth transition */
+        }
+
+        h1.dark-mode {
+            color: #e0e0e0;
+        }
+
+        .ul-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .ul-list li {
+            background-color: #e6f7ff;
+            margin-bottom: 10px;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
+        }
+
+        .ul-list li:hover {
+            transform: translateY(-5px);
+            background-color: #d9edf7;
+        }
+
+        .ul-list li.dark-mode {
+            background-color: #333;
+            box-shadow: 0 2px 4px rgba(255, 255, 255, 0.08);
+        }
+
+        .ul-list li:hover.dark-mode {
+            background-color: #444;
+        }
+
+        .ul-list li ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .ul-list li ul li {
+            background-color: transparent;
+            box-shadow: none;
+            padding: 0;
+            margin: 0;
+            transition: color 0.3s ease;
+        }
+
+        .paragraph-style {
+            font-size: 1.1em;
+            color: #555;
+            text-align: center;
+            margin-bottom: 20px;
+            transition: color 0.3s ease;
+        }
+
+        .paragraph-style.dark-mode{
+            color:#bbb;
+        }
+
+        .dark-mode-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 10px 15px;
+            background-color: #336699;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .dark-mode-button:hover {
+            background-color: #28517e;
+        }
+    </style>
 </head>
 <body>
-    <p>Adding a paragraph in feature-index.html-1 branch</p>
-    <li>
-        <ul>Sukhoi-35</ul>
-        <ul>Typhoon</ul>
-        <ul>rafael</ul>
-        <ul>F-22</ul>
-        <ul>B-2</ul>
-        <ul>f-18</ul>
-        <ul>f-16</ul>
-        <ul>Tejas</ul>
-        <ul>Sukhoi-30</ul>
-        <ul>Sukhoi-57</ul>
-        <ul>F-14</ul>
-        <ul>MIG</ul>
+    <button class="dark-mode-button" id="darkModeToggle">Dark Mode</button>
+    <div class="container">
+        <h1>Top Aircrafts</h1>
+        <p class="paragraph-style">A selection of some of the most impressive aircrafts in the world.</p>
+        <ul class="ul-list">
+            <li><ul>Sukhoi-35</ul></li>
+            <li><ul>Typhoon</ul></li>
+            <li><ul>Rafael</ul></li>
+            <li><ul>F-22</ul></li>
+            <li><ul>B-2</ul></li>
+            <li><ul>F-18</ul></li>
+            <li><ul>F-16</ul></li>
+            <li><ul>Tejas</ul></li>
+            <li><ul>Sukhoi-30</ul></li>
+            <li><ul>Sukhoi-57</ul></li>
+            <li><ul>F-14</ul></li>
+            <li><ul>MIG</ul></li>
+        </ul>
+    </div>
 
+    <script>
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const body = document.body;
+        const container = document.querySelector('.container');
+        const h1 = document.querySelector('h1');
+        const listItems = document.querySelectorAll('.ul-list li');
+        const paragraph = document.querySelector('.paragraph-style');
 
+        darkModeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            container.classList.toggle('dark-mode');
+            h1.classList.toggle('dark-mode');
+            listItems.forEach(item => item.classList.toggle('dark-mode'));
+            paragraph.classList.toggle('dark-mode');
+
+            if (body.classList.contains('dark-mode')) {
+                darkModeToggle.textContent = 'Light Mode';
+            } else {
+                darkModeToggle.textContent = 'Dark Mode';
+            }
+        });
+    </script>
 </body>
 </html>
