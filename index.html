@@ -3,165 +3,337 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Awesome Aircraft List</title>
+    <title>Aircraft Showcase - Modern Design</title>
     <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
+        :root {
+            --primary-bg: #ffffff;
+            --secondary-bg: #f5f5f7;
+            --card-bg: #ffffff;
+            --text-primary: #1d1d1f;
+            --text-secondary: #6e6e73;
+            --button-bg: #e1e1e3;
+            --button-hover: #d1d1d3;
+            --button-active: #0071e3;
+            --button-text-active: #ffffff;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
         }
 
-        body.dark-mode {
-            background-color: #121212;
-            color: #e0e0e0;
+        [data-theme="dark"] {
+            --primary-bg: #000000;
+            --secondary-bg: #1d1d1f;
+            --card-bg: #1c1c1e;
+            --text-primary: #f5f5f7;
+            --text-secondary: #a1a1a6;
+            --button-bg: #323235;
+            --button-hover: #3a3a3c;
+            --button-active: #0071e3;
+            --button-text-active: #ffffff;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--primary-bg);
+            color: var(--text-primary);
+            transition: var(--transition);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .container {
-            background-color: white;
-            padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 80%;
-            max-width: 600px;
-            transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
+            max-width: 1200px;
+            width: 90%;
+            margin: 0 auto;
+            padding: 40px 0;
         }
 
-        .container.dark-mode {
-            background-color: #1e1e1e;
-            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
-        }
-
-        h1 {
+        .header {
             text-align: center;
-            color: #333;
-            margin-bottom: 30px;
-            transition: color 0.3s ease; /* Smooth transition */
+            padding: 40px 0;
+            position: relative;
         }
 
-        h1.dark-mode {
-            color: #e0e0e0;
-        }
-
-        .ul-list {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        .ul-list li {
-            background-color: #e6f7ff;
+        .title {
+            font-size: 2.5rem;
+            font-weight: 600;
             margin-bottom: 10px;
-            padding: 15px;
-            border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
-            transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
+            background: linear-gradient(135deg, #0071e3, #00c6fb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
-        .ul-list li:hover {
-            transform: translateY(-5px);
-            background-color: #d9edf7;
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
         }
 
-        .ul-list li.dark-mode {
-            background-color: #333;
-            box-shadow: 0 2px 4px rgba(255, 255, 255, 0.08);
-        }
-
-        .ul-list li:hover.dark-mode {
-            background-color: #444;
-        }
-
-        .ul-list li ul {
-            margin: 0;
-            padding: 0;
-            list-style: none;
-        }
-
-        .ul-list li ul li {
-            background-color: transparent;
-            box-shadow: none;
-            padding: 0;
-            margin: 0;
-            transition: color 0.3s ease;
-        }
-
-        .paragraph-style {
-            font-size: 1.1em;
-            color: #555;
-            text-align: center;
-            margin-bottom: 20px;
-            transition: color 0.3s ease;
-        }
-
-        .paragraph-style.dark-mode{
-            color:#bbb;
-        }
-
-        .dark-mode-button {
+        .theme-toggle {
             position: fixed;
             top: 20px;
             right: 20px;
-            padding: 10px 15px;
-            background-color: #336699;
-            color: white;
+            background: var(--button-bg);
+            color: var(--text-primary);
             border: none;
-            border-radius: 5px;
+            border-radius: 25px;
+            padding: 10px 15px;
+            font-size: 0.9rem;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: var(--transition);
+            z-index: 100;
         }
 
-        .dark-mode-button:hover {
-            background-color: #28517e;
+        .theme-toggle:hover {
+            background: var(--button-hover);
+            transform: translateY(-2px);
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0 40px;
+            flex-wrap: wrap;
+        }
+
+        .nav-button {
+            padding: 12px 24px;
+            background: var(--button-bg);
+            color: var(--text-primary);
+            border: none;
+            border-radius: 20px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .nav-button:hover {
+            background: var(--button-hover);
+            transform: translateY(-3px);
+        }
+
+        .nav-button.active {
+            background: var(--button-active);
+            color: var(--button-text-active);
+            transform: translateY(-3px);
+        }
+
+        .content-section {
+            display: none;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .content-section.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            transition: var(--transition);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-image {
+            height: 180px;
+            width: 100%;
+            background-color: #0071e3;
+            background-image: linear-gradient(135deg, #0071e3, #00c6fb);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            font-weight: 300;
+        }
+
+        .card-content {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+        }
+
+        .card-description {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            flex-grow: 1;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .card-tag {
+            font-size: 0.8rem;
+            color: #0071e3;
+            background-color: rgba(0, 113, 227, 0.1);
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+
+        .card-button {
+            background: transparent;
+            color: #0071e3;
+            border: none;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+
+        .card-button:hover {
+            text-decoration: underline;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 40px 0;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            width: 100%;
+            background-color: var(--secondary-bg);
+            margin-top: auto;
+        }
+
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            
+            .title {
+                font-size: 2rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
         }
     </style>
 </head>
 <body>
-    <button class="dark-mode-button" id="darkModeToggle">Dark Mode</button>
+    <button id="themeToggle" class="theme-toggle">Switch to Dark Mode</button>
+    
     <div class="container">
-        <h1>Top Aircrafts</h1>
-        <p class="paragraph-style">A selection of some of the most impressive aircrafts in the world.</p>
-        <ul class="ul-list">
-            <li><ul>Sukhoi-35</ul></li>
-            <li><ul>Typhoon</ul></li>
-            <li><ul>Rafael</ul></li>
-            <li><ul>F-22</ul></li>
-            <li><ul>B-2</ul></li>
-            <li><ul>Tejas</ul></li>
-            <li><ul>Sukhoi-30</ul></li>
-            <li><ul>Sukhoi-57</ul></li>
-            <li><ul>F-14</ul></li>
-            <li><ul>MIG</ul></li>
-        </ul>
+
     </div>
+    
+    <footer class="footer">
+        <p>Aircraft Showcase © 2025 | All information is for educational purposes only</p>
+    </footer>
 
     <script>
-        const darkModeToggle = document.getElementById('darkModeToggle');
-        const body = document.body;
-        const container = document.querySelector('.container');
-        const h1 = document.querySelector('h1');
-        const listItems = document.querySelectorAll('.ul-list li');
-        const paragraph = document.querySelector('.paragraph-style');
+        // Initialize - Make sure first tab is active
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set the initial active section
+            document.getElementById('fighters').classList.add('active');
+            document.querySelector('.nav-button[data-target="fighters"]').classList.add('active');
+        });
 
-        darkModeToggle.addEventListener('click', () => {
-            body.classList.toggle('dark-mode');
-            container.classList.toggle('dark-mode');
-            h1.classList.toggle('dark-mode');
-            listItems.forEach(item => item.classList.toggle('dark-mode'));
-            paragraph.classList.toggle('dark-mode');
-
-            if (body.classList.contains('dark-mode')) {
-                darkModeToggle.textContent = 'Light Mode';
-            } else {
-                darkModeToggle.textContent = 'Dark Mode';
-            }
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const htmlElement = document.documentElement;
+        
+        // Check if user has a preferred theme stored
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            htmlElement.setAttribute('data-theme', savedTheme);
+            updateToggleButtonText(savedTheme);
+        }
+        
+        themeToggle.addEventListener('click', function() {
+            const currentTheme = htmlElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            htmlElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateToggleButtonText(newTheme);
+        });
+        
+        function updateToggleButtonText(theme) {
+            themeToggle.textContent = theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode';
+        }
+        
+        // Navigation functionality - Fixed event handling
+        const navButtons = document.querySelectorAll('.nav-button');
+        const contentSections = document.querySelectorAll('.content-section');
+        
+        navButtons.forEach(function(button) {
+            button.addEventListener('click', function() {
+                // Remove active class from all buttons and sections
+                navButtons.forEach(function(btn) {
+                    btn.classList.remove('active');
+                });
+                
+                contentSections.forEach(function(section) {
+                    section.classList.remove('active');
+                });
+                
+                // Add active class to clicked button
+                button.classList.add('active');
+                
+                // Get target section ID and activate it
+                const targetId = button.getAttribute('data-target');
+                const targetSection = document.getElementById(targetId);
+                
+                if (targetSection) {
+                    targetSection.classList.add('active');
+                }
+            });
+        });
+        
+        // Card button interactions
+        const cardButtons = document.querySelectorAll('.card-button');
+        cardButtons.forEach(function(button) {
+            button.addEventListener('click', function(e) {
+                const cardTitle = e.target.closest('.card').querySelector('.card-title').textContent;
+                alert(`More information about ${cardTitle} coming soon!`);
+            });
         });
     </script>
-    <p>hello there !!</p>
-    <p>namasthee</p>
+
 </body>
 </html>
